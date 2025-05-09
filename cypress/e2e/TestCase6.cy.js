@@ -1,18 +1,19 @@
-// Test Case 12: Add Products in Cart
+// Test Case 6: Contact Us Form
 // 1. Launch browser
 // 2. Navigate to url 'http://automationexercise.com'
 // 3. Verify that home page is visible successfully
-// 4. Click 'Products' button
-// 5. Hover over first product and click 'Add to cart'
-// 6. Click 'Continue Shopping' button
-// 7. Hover over second product and click 'Add to cart'
-// 8. Click 'View Cart' button
-// 9. Verify both products are added to Cart
-// 10. Verify their prices, quantity and total price
+// 4. Click on 'Contact Us' button
+// 5. Verify 'GET IN TOUCH' is visible
+// 6. Enter name, email, subject and message
+// 7. Upload file
+// 8. Click 'Submit' button
+// 9. Click OK button
+// 10. Verify success message 'Success! Your details have been submitted successfully.' is visible
+// 11. Click 'Home' button and verify that landed to home page successfully
 
-describe("Test Case 12: Add Products in Cart", () => {
-  it("Products can be added to cart", () => {
-    cy.visitAndVerifyHomePage(); //1-3 steps
-    cy.addToCart();
+describe("Test Case 6: Contact Us Form", () => {
+  it("Verify contact us Form", () => {
+    cy.visitAndVerifyHomePage(); // 1-3 steps
+    cy.sendContactUsForm(); // 4-11 steps});
   });
 });

@@ -1,18 +1,13 @@
-// Test Case 21: Add review on product
+// Test Case 7: Verify Test Cases Page
 // 1. Launch browser
 // 2. Navigate to url 'http://automationexercise.com'
-// 3. Click on 'Products' button
-// 4. Verify user is navigated to ALL PRODUCTS page successfully
-// 5. Click on 'View Product' button
-// 6. Verify 'Write Your Review' is visible
-// 7. Enter name, email and review
-// 8. Click 'Submit' button
-// 9. Verify success message 'Thank you for your review.'
+// 3. Verify that home page is visible successfully
+// 4. Click on 'Test Cases' button
+// 5. Verify user is navigated to test cases page successfully
 
-describe("Test Case 21: Add review on product", () => {
-  it("verify products and details visible", () => {
-    cy.visitAndVerifyHomePage(); //1-3 steps
-    cy.visitAndVerifyProductsPage();
-    cy.addProductReview();
+describe("Test Case 7: Verify Test Cases Page", () => {
+  it("Verify test cases page opens", () => {
+    cy.visitAndVerifyHomePage(); // 1-3 steps
+    cy.verifyTestCasesPage(); // 4-5 step
   });
 });
