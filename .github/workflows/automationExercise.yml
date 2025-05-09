@@ -14,22 +14,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Use Node.js 18
-        uses: actions/setup-node@v2
-        with:
-          node-version: 18
+      - uses: actions/checkout@v4
 
       - name: Install dependencies
         run: npm install
 
-      - name: Check if Automation Exercise site is accessible
-        run: curl -I https://www.automationexercise.com
+      - name: Run Cypress tests
+        run: npx cypress run
 
-      - name: Run Cypress tests with Chrome
-        run: npx cypress run --headless --browser chrome
-        env:
-          CI: true
-        continue-on-error: true
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-test-results
+          path: cypress/results/
+
+      - name: Publish Test Results
+        uses: dorny/test-reporter@v1
+        with:
+          name: Cypress Tests
+          path: cypress/results/*.xml
+          reporter: mocha-junit
