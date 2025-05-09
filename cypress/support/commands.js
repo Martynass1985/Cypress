@@ -209,62 +209,6 @@ Cypress.Commands.add("verifyScrollandArrow", () => {
   cy.get(".single-widget").should("be.visible");
   cy.get("#scrollUp").should("be.visible").click();
 });
-// Cypress.Commands.add("addToCart", () => {
-//   // 5. Hover over first product and click 'Add to cart'
-//   // 6. Click 'Continue Shopping' button
-//   // 7. Hover over second product and click 'Add to cart'
-//   // 8. Click 'View Cart' button
-//   // 9. Verify both products are added to Cart
-//   // 10. Verify their prices, quantity and total price
-//   // Step 4: Navigate to products page
-//   cy.get("[href='/products']").click();
-
-//   // Step 5: Hover over the first product, capture details, and add to cart
-//   cy.get("[class*='productinfo']")
-//     .eq(0)
-//     .should("be.visible") // Ensure the element is visible
-//     .find("p")
-//     .invoke("text")
-//     .as("firstProductName"); // Directly target the name
-
-//   cy.get("[class*='productinfo']")
-//     .eq(0)
-//     .find("h2")
-//     .invoke("text")
-//     .as("firstProductPrice"); // Directly target the price
-
-//   cy.get("[class*='productinfo']").eq(0).find("[class*='add-to-cart']").click(); // Add to cart
-
-//   // Step 6: Close the modal
-//   cy.get("[data-dismiss='modal']").click();
-
-//   // Step 7: Hover over the second product, capture details, and add to cart
-//   cy.get("[class*='productinfo']")
-//     .eq(1)
-//     .as("secondProduct") // Alias for the second product
-//     .within(() => {
-//       cy.get("p").invoke("text").as("secondProductName"); // Save product name
-//       cy.get("h2").invoke("text").as("secondProductPrice"); // Save product price
-//       cy.get("[class*='add-to-cart']").click(); // Add to cart
-//     });
-
-//   // Step 8: View the cart
-//   cy.get(".modal-body [href='/view_cart']").click();
-//   // Step 9: Verify both products are added to the cart
-//   cy.get("@firstProductName").then((firstName) => {
-//     cy.get("@firstProductPrice").then((firstPrice) => {
-//       cy.get(".cart-items").should("contain.text", firstName); // Verify name
-//       cy.get(".cart-items").should("contain.text", firstPrice); // Verify price
-//     });
-//   });
-
-//   cy.get("@secondProductName").then((secondName) => {
-//     cy.get("@secondProductPrice").then((secondPrice) => {
-//       cy.get(".cart-items").should("contain.text", secondName); // Verify name
-//       cy.get(".cart-items").should("contain.text", secondPrice); // Verify price
-//     });
-//   });
-// });
 Cypress.Commands.add("addToCart", () => {
   cy.get("[href='/products']").click();
 
