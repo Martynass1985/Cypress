@@ -112,14 +112,6 @@ This approach ensures that the `#scrollUp` element becomes visible, allowing the
 
 ---
 
-## 📸 **Screenshots**
-
-Here’s an example of the test in action:
-
-![Test Screenshot Placeholder](https://via.placeholder.com/800x400?text=Test+Screenshot)
-
----
-
 ## 🎉 **Get Started Today!**
 
 Clone the repository, install the dependencies, and start automating your tests with Cypress! 🚀
