@@ -24,22 +24,30 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run Cypress tests
-        run: npx cypress run
+      - name: Run Cypress tests (individually)
+        run: |
+          mkdir -p cypress/results
+          for file in cypress/e2e/*.cy.js; do
+            filename=$(basename "$file" .js)
+            echo "Running $filename"
+            npx cypress run --spec "$file" \
+              --reporter mocha-junit-reporter \
+              --reporter-options "mochaFile=cypress/results/results-${filename}.xml" || exit 1
+          done
 
-      - name: Upload Cypress test screenshots (optional)
+      - name: Upload Cypress screenshots
         uses: actions/upload-artifact@v4
         with:
           name: cypress-screenshots
           path: cypress/screenshots/
 
-      - name: Upload Cypress test videos (optional)
+      - name: Upload Cypress videos
         uses: actions/upload-artifact@v4
         with:
           name: cypress-videos
           path: cypress/videos/
 
-      - name: Upload test results
+      - name: Upload Cypress test results
         uses: actions/upload-artifact@v4
         with:
           name: cypress-test-results
@@ -50,11 +58,11 @@ jobs:
         with:
           name: Cypress Tests
           path: cypress/results/*.xml
-          reporter: jest-junit # ✅ updated here
+          reporter: mocha-junit
           path-replace-backslashes: false
           list-suites: all
           list-tests: all
-          max-annotations: 10
+          max-annotations: 50
           fail-on-error: true
           fail-on-empty: true
           only-summary: false
