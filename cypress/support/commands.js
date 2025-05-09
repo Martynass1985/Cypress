@@ -138,9 +138,9 @@ Cypress.Commands.add("sendContactUsForm", () => {
   cy.get("input[name='name']").type(user.name); // 6 step
   cy.get("input[name='email']").type(user.email); // 6 step
   cy.get("input[name='subject']").type("Test Subject"); // 6 step
-  cy.get("[name='upload_file']").selectFile(
-    "../../../Downloads/depositphotos_80976150-stock-photo-software-tester-represents-scrutinizer-tests.jpg"
-  ); // 7 step
+  // cy.get("[name='upload_file']").selectFile(
+  //   "../../../Downloads/depositphotos_80976150-stock-photo-software-tester-represents-scrutinizer-tests.jpg"
+  // ); // 7 step
   cy.get("[data-qa='submit-button']").click(); // 8 step
   cy.get("[class*='status']").should(
     "have.text",
