@@ -9,3 +9,10 @@
 // 8. Click 'View Cart' button
 // 9. Verify both products are added to Cart
 // 10. Verify their prices, quantity and total price
+
+describe("Test Case 12: Add Products in Cart", () => {
+  it("Products can be added to cart", () => {
+    cy.visitAndVerifyHomePage(); //1-3 steps
+    cy.addToCart();
+  });
+});

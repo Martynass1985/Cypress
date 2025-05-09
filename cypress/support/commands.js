@@ -209,3 +209,145 @@ Cypress.Commands.add("verifyScrollandArrow", () => {
   cy.get(".single-widget").should("be.visible");
   cy.get("#scrollUp").should("be.visible").click();
 });
+// Cypress.Commands.add("addToCart", () => {
+//   // 5. Hover over first product and click 'Add to cart'
+//   // 6. Click 'Continue Shopping' button
+//   // 7. Hover over second product and click 'Add to cart'
+//   // 8. Click 'View Cart' button
+//   // 9. Verify both products are added to Cart
+//   // 10. Verify their prices, quantity and total price
+//   // Step 4: Navigate to products page
+//   cy.get("[href='/products']").click();
+
+//   // Step 5: Hover over the first product, capture details, and add to cart
+//   cy.get("[class*='productinfo']")
+//     .eq(0)
+//     .should("be.visible") // Ensure the element is visible
+//     .find("p")
+//     .invoke("text")
+//     .as("firstProductName"); // Directly target the name
+
+//   cy.get("[class*='productinfo']")
+//     .eq(0)
+//     .find("h2")
+//     .invoke("text")
+//     .as("firstProductPrice"); // Directly target the price
+
+//   cy.get("[class*='productinfo']").eq(0).find("[class*='add-to-cart']").click(); // Add to cart
+
+//   // Step 6: Close the modal
+//   cy.get("[data-dismiss='modal']").click();
+
+//   // Step 7: Hover over the second product, capture details, and add to cart
+//   cy.get("[class*='productinfo']")
+//     .eq(1)
+//     .as("secondProduct") // Alias for the second product
+//     .within(() => {
+//       cy.get("p").invoke("text").as("secondProductName"); // Save product name
+//       cy.get("h2").invoke("text").as("secondProductPrice"); // Save product price
+//       cy.get("[class*='add-to-cart']").click(); // Add to cart
+//     });
+
+//   // Step 8: View the cart
+//   cy.get(".modal-body [href='/view_cart']").click();
+//   // Step 9: Verify both products are added to the cart
+//   cy.get("@firstProductName").then((firstName) => {
+//     cy.get("@firstProductPrice").then((firstPrice) => {
+//       cy.get(".cart-items").should("contain.text", firstName); // Verify name
+//       cy.get(".cart-items").should("contain.text", firstPrice); // Verify price
+//     });
+//   });
+
+//   cy.get("@secondProductName").then((secondName) => {
+//     cy.get("@secondProductPrice").then((secondPrice) => {
+//       cy.get(".cart-items").should("contain.text", secondName); // Verify name
+//       cy.get(".cart-items").should("contain.text", secondPrice); // Verify price
+//     });
+//   });
+// });
+Cypress.Commands.add("addToCart", () => {
+  cy.get("[href='/products']").click();
+
+  cy.get("[class*='productinfo']")
+    .eq(0)
+    .should("be.visible")
+    .find("p")
+    .invoke("text")
+    .as("firstProductName");
+
+  cy.get("[class*='productinfo']")
+    .eq(0)
+    .find("h2")
+    .invoke("text")
+    .as("firstProductPrice");
+
+  cy.get("@firstProductName").then((firstName) => {
+    cy.wrap(firstName).as("firstNameStored");
+  });
+
+  cy.get("@firstProductPrice").then((firstPrice) => {
+    cy.wrap(firstPrice).as("firstPriceStored");
+  });
+
+  cy.get("[class*='productinfo']")
+    .eq(0)
+    .find("[class*='add-to-cart']")
+    .scrollIntoView()
+    .should("be.visible")
+    .click();
+
+  cy.get(".modal.fade").should("not.exist");
+
+  cy.get("[data-dismiss='modal']").click();
+
+  cy.get("[class*='productinfo']")
+    .eq(1)
+    .as("secondProduct")
+    .within(() => {
+      cy.get("p").invoke("text").as("secondProductName");
+      cy.get("h2").invoke("text").as("secondProductPrice");
+      cy.get("[class*='add-to-cart']")
+        .scrollIntoView()
+        .should("be.visible")
+        .click({ force: true });
+    });
+
+  cy.get("@secondProductName").then((secondName) => {
+    cy.wrap(secondName).as("secondNameStored");
+  });
+
+  cy.get("@secondProductPrice").then((secondPrice) => {
+    cy.wrap(secondPrice).as("secondPriceStored");
+  });
+
+  cy.get(".modal.fade").should("not.exist");
+
+  cy.get(".modal-body [href='/view_cart']").click();
+
+  cy.url().should("include", "/view_cart");
+  cy.get("#cart_items > :nth-child(1)").should("be.visible");
+
+  cy.get("@firstNameStored").then((firstName) => {
+    cy.get("#product-1 > .cart_description")
+      .should("exist")
+      .should("contain.text", firstName);
+  });
+
+  cy.get("@firstPriceStored").then((firstPrice) => {
+    cy.get("#product-1 > .cart_price")
+      .should("exist")
+      .should("contain.text", firstPrice);
+  });
+
+  cy.get("@secondNameStored").then((secondName) => {
+    cy.get("#product-2 > .cart_description")
+      .should("exist")
+      .should("contain.text", secondName);
+  });
+
+  cy.get("@secondPriceStored").then((secondPrice) => {
+    cy.get("#product-2 > .cart_price")
+      .should("exist")
+      .should("contain.text", secondPrice);
+  });
+});
