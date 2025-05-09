@@ -6,7 +6,7 @@
 
 ## 🔗 **Repository**
 
-You can find the project repository here: [Cypress Automation Exercise](https://github.com/Martynass1985/Cypress.git)
+Clone repository : https://github.com/Martynass1985/Cypress.git
 
 ---
 
