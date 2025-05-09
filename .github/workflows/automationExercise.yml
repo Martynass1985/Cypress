@@ -45,4 +45,11 @@ jobs:
         with:
           name: Cypress Tests
           path: cypress/results/*.xml
-          reporter: mocha-junit
+          reporter: jest-junit # ✅ updated here
+          path-replace-backslashes: false
+          list-suites: all
+          list-tests: all
+          max-annotations: 10
+          fail-on-error: true
+          fail-on-empty: true
+          only-summary: false
