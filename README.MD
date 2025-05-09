@@ -1,6 +1,6 @@
 # 🌟 **Cypress Automation Exercise** 🌟
 
-![Cypress Logo](https://www.cypress.io/cypress_logo_social.png)
+![Cypress Logo](https://upload.wikimedia.org/wikipedia/commons/a/a4/Cypress.png)
 
 ---
 
