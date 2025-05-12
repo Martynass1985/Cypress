@@ -71,16 +71,14 @@ Cypress.Commands.add("registerUser", () => {
   cy.get("[data-qa='account-created']").should("exist").and("be.visible");
   cy.get("[data-qa='continue-button']").click();
 
-  // Reset Cypress environment variables:
   Cypress.env({});
 
-  // Write to `.env` file:
   const envContent = Object.entries(user)
     .map(([key, value]) => `${key.toUpperCase()}=${value}`)
     .join("\n");
 
-  cy.writeFile("cypress/fixtures/registerUser.env", envContent).then(() => {
-    cy.readFile("cypress/fixtures/registerUser.env").then((envData) => {
+  cy.writeFile("cypress/user.env", envContent).then(() => {
+    cy.readFile("cypress/user.env").then((envData) => {
       envData.split("\n").forEach((line) => {
         const [key, value] = line.split("=");
         if (key && value) {
@@ -97,7 +95,7 @@ Cypress.Commands.add("registerUser", () => {
   Cypress.env("TEXTAREA", user.textArea);
   Cypress.env("ADDRESS1", user.address1);
   Cypress.env("ADDRESS2", user.address2);
-  //   cy.get(".shop-menu").should("contain", `${user.name}`);
+  cy.get(".shop-menu").should("contain", `${user.name}`);
 });
 Cypress.Commands.add("deleteUser", () => {
   cy.get("[href='/delete_account']").click();
@@ -126,9 +124,9 @@ Cypress.Commands.add("sendContactUsForm", () => {
   cy.get("#slider-carousel").should("exist").and("be.visible");
 });
 Cypress.Commands.add("verifyTestCasesPage", () => {
-  cy.get("header[id='header'] li:nth-child(5) a:nth-child(1)").click(); // 4 step
+  cy.get("#header li:nth-child(5) a").click(); // 4 step
   cy.url().should("include", "test_cases"); // 5 step
-  cy.get("h2:nth-child(1)").first().should("have.text", "Test Cases");
+  cy.get("h2").first().should("have.text", "Test Cases");
 });
 Cypress.Commands.add("visitAndVerifyProductsPage", () => {
   cy.get("[href='/products']").click(); // 4 step
@@ -141,7 +139,7 @@ Cypress.Commands.add("verifyProductDetails", () => {
   cy.url().should("include", "product_details/1"); // 8 step
   cy.get(".product-information h2").should("be.visible"); // 9 step // 9 step
   cy.get("p:contains('Category')").should("be.visible"); // 9 step
-  cy.get("div[class='product-information'] span span").should("be.visible"); // 9 step
+  cy.get(".product-information span span").should("be.visible"); // 9 step
   cy.get("p:contains('Availability')").should("be.visible"); // 9 step
   cy.get("p:contains('Condition')").should("be.visible"); // 9 step
   cy.get("p:contains('Brand')").should("be.visible"); // 9 step
@@ -155,12 +153,7 @@ Cypress.Commands.add("verifySearchProduct", (product) => {
     product
   ); // 8 step
 });
-Cypress.Commands.add("addProductReview", (product) => {
-  // 5. Click on 'View Product' button
-  // 6. Verify 'Write Your Review' is visible
-  // 7. Enter name, email and review
-  // 8. Click 'Submit' button
-  // 9. Verify success message 'Thank you for your review
+Cypress.Commands.add("addProductReview", () => {
   cy.get("[href='/product_details/1']").click(); // 5 step
   cy.get("[href='#reviews']")
     .should("be.visible")
@@ -173,7 +166,7 @@ Cypress.Commands.add("addProductReview", (product) => {
     .first()
     .should("contain", "Thank you for your review."); // 9 step
 });
-Cypress.Commands.add("verifyScrollandArrow", () => {
+Cypress.Commands.add("ScrollandVerifyArrow", () => {
   const scrollStep = 300;
   const scrollTimes = 18;
   cy.window().then((win) => {

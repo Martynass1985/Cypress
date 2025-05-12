@@ -10,7 +10,7 @@
 describe("Scroll Down and Verify Scroll Up Button Works", () => {
   it("Scrolls down and clicks the scroll up button", () => {
     cy.visitAndVerifyHomePage();
-    cy.verifyScrollandArrow();
+    cy.ScrollandVerifyArrow();
     cy.get(".item h2")
       .first()
       .should("be.visible")
